@@ -19,7 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- * <b>in_a_word_briefly</b>
+ * <b>有道词典查询界面</b>
  * 
  * <ol>
  * <li>...</li>
@@ -39,8 +39,19 @@ public class YoudaoDicDialog extends JFrame
 	private JTextAreaT output = new JTextAreaT();
 	private JButton translate = new JButton("translate");
 	private JButton reset = new JButton("reset");
-	private JButton random = new JButton("random");
+	private JButton wisdom = new JButton("wisdom");
 	private JButton about = new JButton("about");
+	private String[] wisdoms = new String[] {
+			"Life is not like you imagine so well, but not as you imagine so bad. I think people 's fragile and strong are beyond our imagination.",
+			"日出江花红胜火， 春来江水绿如蓝",
+			"The future belongs to those who believe in the beauty of their dreams.",
+			"Eternity is not a distance but a decision.",
+			"Real girls aren’t perfect. Perfect girls aren’t real",
+			"It's an amazing feeling to realize how one person who was once just a stranger suddenly meant the world to you",
+			"Sometimes you need to step outside, clear your head, and remind yourself of who you are and where you wanna be.",
+			"the pursuit of Happiness", "Get busy living, Or get busy dying.",
+			"To see  a world in a grain of sand. And a heaven in a wild flower.",
+			"我觉得人的脆弱和坚强都超乎自己的想象。有时，我可能脆弱得一句话就泪流满面，有时，也发现自己咬着牙走了很长的路" };
 
 	public YoudaoDicDialog()
 	{
@@ -49,7 +60,7 @@ public class YoudaoDicDialog extends JFrame
 
 		translate.setFont(new Font("微软雅黑", Font.BOLD, 13));
 		reset.setFont(new Font("微软雅黑", Font.BOLD, 13));
-		random.setFont(new Font("微软雅黑", Font.BOLD, 13));
+		wisdom.setFont(new Font("微软雅黑", Font.BOLD, 13));
 		about.setFont(new Font("微软雅黑", Font.BOLD, 13));
 
 		output.setColumns(68);
@@ -72,7 +83,6 @@ public class YoudaoDicDialog extends JFrame
 		input.setSelectionColor(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
 		input.addKeyListener(new KeyListener()
 		{
-
 			@Override
 			public void keyTyped(KeyEvent e)
 			{
@@ -105,29 +115,14 @@ public class YoudaoDicDialog extends JFrame
 				translate();
 			}
 		});
-		random.addActionListener(new ActionListener()
+		wisdom.addActionListener(new ActionListener()
 		{
 
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				int cnt = (int) (Math.random() * 10) + 1;
-
-				if (cnt == 3)
-				{
-					input.setText("Life is not like you imagine so well, but not as you imagine so bad");
-				}
-				else
-				{
-					StringBuilder sb = new StringBuilder();
-					while (cnt > 0)
-					{
-						int randomChar = (int) (Math.random() * 25) + (int) 'a';
-						sb.append((char) randomChar);
-						cnt--;
-					}
-					input.setText(sb.toString());
-				}
+				int cnt = (int) (Math.random() * wisdoms.length);
+				input.setText(wisdoms[cnt]);
 				translate();
 			}
 		});
@@ -135,7 +130,7 @@ public class YoudaoDicDialog extends JFrame
 		jp.add(input);
 		jp.add(translate);
 		jp.add(reset);
-		jp.add(random);
+		jp.add(wisdom);
 		jp.add(about);
 		jp.add(output);
 

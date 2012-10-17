@@ -13,6 +13,16 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import com.tsingxu.api.youdao.po.Result;
 
+/**
+ * <b>translate线程，持有一个消息队列，持续的翻译队列中的输入</b>
+ * 
+ * <ol>
+ * <li>...</li>
+ * </ol>
+ * 
+ * @since 2012-10-17 下午4:50:04
+ * @author x00199331
+ */
 public class Translate implements Runnable
 {
 	private static final String ID = "tsingxu";
