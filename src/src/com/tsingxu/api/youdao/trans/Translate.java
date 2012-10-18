@@ -7,10 +7,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.LinkedList;
 
-import javax.swing.JTextArea;
-
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.tsingxu.api.youdao.YoudaoDicDialog;
 import com.tsingxu.api.youdao.po.Result;
 
 /**
@@ -25,17 +24,22 @@ import com.tsingxu.api.youdao.po.Result;
  */
 public class Translate implements Runnable
 {
-	private static final String ID = "tsingxu";
-	private static final String KEY = "1031053504";
-	private static final String DOCTYPE = "json";
-	private static final String URL_REQ = "http://fanyi.youdao.com/openapi.do";
-	private static final String urlHead;
+	private final String ID = "tsingxu";
+	private final String KEY = "1031053504";
+	private final String DOCTYPE = "json";
+	private final String URL_REQ = "http://fanyi.youdao.com/openapi.do";
+	private final String urlHead;
 	private static Translate instance = new Translate();
-	private LinkedList<task> queue = new LinkedList<task>();
+	private LinkedList<Task> queue = new LinkedList<Task>();
+	private LimitCursorDeque<Task> lcdeque = new LimitCursorDeque<Task>(3333);
+	private YoudaoDicDialog dialog;
 
 	private Translate()
 	{
 		queue.clear();
+		lcdeque.clear();
+		urlHead = URL_REQ + "?" + "keyfrom=" + ID + "&key=" + KEY + "&type=data&doctype=" + DOCTYPE
+				+ "&version=1.1" + "&q=";
 	}
 
 	public static Translate getInstance()
@@ -43,29 +47,16 @@ public class Translate implements Runnable
 		return instance;
 	}
 
-	private class task
+	public void setDialog(YoudaoDicDialog dialog)
 	{
-		String input;
-		JTextArea output;
-
-		public task(String input, JTextArea output)
-		{
-			this.input = input;
-			this.output = output;
-		}
+		this.dialog = dialog;
 	}
 
-	static
-	{
-		urlHead = URL_REQ + "?" + "keyfrom=" + ID + "&key=" + KEY + "&type=data&doctype=" + DOCTYPE
-				+ "&version=1.1" + "&q=";
-	}
-
-	public void translate(String input, JTextArea output)
+	public void translate(String input)
 	{
 		synchronized (queue)
 		{
-			queue.push(new task(input, output));
+			queue.push(new Task(input));
 			if (queue.size() <= 1)
 			{
 				queue.notify();
@@ -84,7 +75,7 @@ public class Translate implements Runnable
 		ObjectMapper om = new ObjectMapper();
 		long start;
 		String resp;
-		task t = null;
+		Task t = null;
 
 		while (true)
 		{
@@ -113,7 +104,7 @@ public class Translate implements Runnable
 			try
 			{
 				start = System.currentTimeMillis();
-				url = new URL(urlHead + URLEncoder.encode(t.input, "utf-8"));
+				url = new URL(urlHead + URLEncoder.encode(t.getInString(), "utf-8"));
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestMethod("POST");
 
@@ -131,11 +122,18 @@ public class Translate implements Runnable
 				String outText = String.valueOf(result);
 				outText = "elapsed " + (System.currentTimeMillis() - start) + " ms\n\n" + result;
 
-				t.output.setText(outText);
+				t.setOutString(outText);
+				dialog.onResp(outText);
 			}
 			catch (Exception e)
 			{
-				t.output.setText(String.valueOf(e));
+				t.setOutString(String.valueOf(e));
+				dialog.onResp(String.valueOf(e));
+			}
+			finally
+			{
+				lcdeque.offer(t);
+				lcdeque.resetCursor();
 			}
 		}
 	}

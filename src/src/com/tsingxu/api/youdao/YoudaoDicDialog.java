@@ -149,6 +149,7 @@ public class YoudaoDicDialog extends JFrame
 
 		ImageIcon ii = new ImageIcon(this.getClass().getResource("dropbox.png"));
 		jf.setIconImage(ii.getImage());
+		Translate.getInstance().setDialog(this);
 	}
 
 	class translateListener implements ActionListener
@@ -174,7 +175,7 @@ public class YoudaoDicDialog extends JFrame
 		}
 		else
 		{
-			Translate.getInstance().translate(input.getText().trim(), output);
+			Translate.getInstance().translate(input.getText().trim());
 		}
 	}
 
@@ -185,6 +186,11 @@ public class YoudaoDicDialog extends JFrame
 		{
 			reset();
 		}
+	}
+
+	public void onResp(String resp)
+	{
+		this.output.setText(resp);
 	}
 
 	public void reset()

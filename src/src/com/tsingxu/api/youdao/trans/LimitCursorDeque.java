@@ -344,7 +344,7 @@ public class LimitCursorDeque<E> implements Queue<E>
 
 		if (foot == cursor)
 		{
-			cursor = head;
+			resetCursor();
 		}
 
 		if (foot.getBack() != null)
@@ -358,6 +358,11 @@ public class LimitCursorDeque<E> implements Queue<E>
 
 		size--;
 		return value;
+	}
+
+	public void resetCursor()
+	{
+		cursor = head;
 	}
 
 	@Override
