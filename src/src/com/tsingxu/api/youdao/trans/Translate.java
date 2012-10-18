@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.tsingxu.api.youdao.YoudaoDicDialog;
+import com.tsingxu.api.youdao.YoudaoTransDialog;
 import com.tsingxu.api.youdao.po.Result;
 
 /**
@@ -33,7 +33,7 @@ public class Translate implements Runnable
 	private static Translate instance = new Translate();
 	private LinkedList<Task> queue = new LinkedList<Task>();
 	private LimitCursorQueue<Task> lcdeque = new LimitCursorQueue<Task>(10000);
-	private YoudaoDicDialog dialog;
+	private YoudaoTransDialog dialog;
 
 	private Translate()
 	{
@@ -48,7 +48,7 @@ public class Translate implements Runnable
 		return instance;
 	}
 
-	public void setDialog(YoudaoDicDialog dialog)
+	public void setDialog(YoudaoTransDialog dialog)
 	{
 		this.dialog = dialog;
 	}

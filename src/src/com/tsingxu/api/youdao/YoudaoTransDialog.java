@@ -36,7 +36,7 @@ import com.tsingxu.api.youdao.trans.Translate;
  * @version 2.0
  */
 @SuppressWarnings("serial")
-public class YoudaoDicDialog extends JFrame
+public class YoudaoTransDialog extends JFrame
 {
 	private JFrame jf = new JFrame("Youdao Trans Dialog by Tsingxu");
 	private JPanel jp = new JPanel();
@@ -62,7 +62,7 @@ public class YoudaoDicDialog extends JFrame
 			"To see  a world in a grain of sand. And a heaven in a wild flower.",
 			"我觉得人的脆弱和坚强都超乎自己的想象。有时，我可能脆弱得一句话就泪流满面，有时，也发现自己咬着牙走了很长的路" };
 
-	public YoudaoDicDialog()
+	public YoudaoTransDialog()
 	{
 		Font font = new Font("微软雅黑", Font.BOLD, 13);
 		translate.setFont(font);
@@ -284,7 +284,7 @@ public class YoudaoDicDialog extends JFrame
 	public static void main(String[] args)
 	{
 		new Thread(Translate.getInstance()).start();
-		new YoudaoDicDialog();
+		new YoudaoTransDialog();
 	}
 
 	class JTextAreaT extends JTextArea
