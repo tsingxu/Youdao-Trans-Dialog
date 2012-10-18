@@ -28,7 +28,8 @@ public class LimitCursorQueue<E> implements Queue<E>
 	{
 		this.capacity = capacity;
 		head = foot = cursor = null;
-		cursorIndex = size = 0;
+		size = 0;
+		cursorIndex = 0;
 	}
 
 	public E stepForward()

@@ -31,7 +31,7 @@ public class Translate implements Runnable
 	private final String urlHead;
 	private static Translate instance = new Translate();
 	private LinkedList<Task> queue = new LinkedList<Task>();
-	private LimitCursorQueue<Task> lcdeque = new LimitCursorQueue<Task>(3333);
+	private LimitCursorQueue<Task> lcdeque = new LimitCursorQueue<Task>(10000);
 	private YoudaoDicDialog dialog;
 
 	private Translate()
@@ -139,7 +139,8 @@ public class Translate implements Runnable
 				resp = baos.toString("utf-8");
 				Result result = (Result) om.readValue(resp, Result.class);
 				String outText = String.valueOf(result);
-				outText = "elapsed " + (System.currentTimeMillis() - start) + " ms\n\n" + result;
+				outText = "The following content provided by fanyi.youdao.com\n\n" + "elapsed "
+						+ (System.currentTimeMillis() - start) + " ms\n\n" + result;
 
 				t.setOutString(outText);
 				dialog.onResp(outText);

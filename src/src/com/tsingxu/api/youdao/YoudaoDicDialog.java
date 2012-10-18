@@ -2,6 +2,7 @@ package com.tsingxu.api.youdao;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -14,8 +15,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.LineBorder;
 
 import com.tsingxu.api.youdao.trans.Task;
 import com.tsingxu.api.youdao.trans.Translate;
@@ -45,6 +49,7 @@ public class YoudaoDicDialog extends JFrame
 	private JButton reset = new JButton("reset");
 	private JButton wisdom = new JButton("wisdom");
 	private JButton about = new JButton("about");
+	private JScrollPane jsp;
 	private String[] wisdoms = new String[] {
 			"Life is not like you imagine so well, but not as you imagine so bad. I think people 's fragile and strong are beyond our imagination.",
 			"日出江花红胜火， 春来江水绿如蓝",
@@ -56,7 +61,6 @@ public class YoudaoDicDialog extends JFrame
 			"the pursuit of Happiness", "Get busy living, Or get busy dying.",
 			"To see  a world in a grain of sand. And a heaven in a wild flower.",
 			"我觉得人的脆弱和坚强都超乎自己的想象。有时，我可能脆弱得一句话就泪流满面，有时，也发现自己咬着牙走了很长的路" };
-	private boolean justTranslated = false;
 
 	public YoudaoDicDialog()
 	{
@@ -69,7 +73,7 @@ public class YoudaoDicDialog extends JFrame
 		forward.setFont(font);
 
 		output.setColumns(68);
-		output.setRows(20);
+		output.setRows(27);
 		output.setLineWrap(true);
 		output.setForeground(Color.BLACK);
 		output.setEditable(false);
@@ -129,6 +133,10 @@ public class YoudaoDicDialog extends JFrame
 				{
 					translate();
 				}
+				else if (e.getKeyChar() == KeyEvent.VK_ESCAPE)
+				{
+					input.setText("");
+				}
 			}
 		});
 
@@ -138,16 +146,12 @@ public class YoudaoDicDialog extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				Task t = Translate.getInstance().previousTask();
-				if (justTranslated)
-				{
-					t = Translate.getInstance().previousTask();
-					justTranslated = false;
-				}
 				if (t != null)
 				{
 					input.setText(t.getInString());
 					output.setText("                                               >>>>>>>>>>>>>>>>history - "
 							+ t.getIndex() + "<<<<<<<<<<<<<<<<\n" + t.getOutString());
+					output.setCaretPosition(0);
 				}
 				input.grabFocus();
 			}
@@ -165,6 +169,7 @@ public class YoudaoDicDialog extends JFrame
 					input.setText(t.getInString());
 					output.setText("                                               >>>>>>>>>>>>>>>>history - "
 							+ t.getIndex() + "<<<<<<<<<<<<<<<<\n" + t.getOutString());
+					output.setCaretPosition(0);
 				}
 				input.grabFocus();
 			}
@@ -201,14 +206,19 @@ public class YoudaoDicDialog extends JFrame
 		jp.add(reset);
 		jp.add(wisdom);
 		jp.add(about);
-		jp.add(output);
-
+		jsp = new JScrollPane(output);
+		jsp.getVerticalScrollBar().setValue(0);
+		LineBorder lb = new LineBorder(Color.getHSBColor(hsb_1[0], hsb_1[1], hsb_1[2]), 0);
+		jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		jsp.setBorder(lb);
+		jp.add(jsp);
 		jp.setBackground(Color.getHSBColor(hsb_1[0], hsb_1[1], hsb_1[2]));
 
 		jf.add(jp);
 		jf.setVisible(true);
 		jf.setSize(800, 600);
-		jf.setResizable(false);
+		jf.setMinimumSize(new Dimension(800, 600));
+		// jf.setResizable(false);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		jf.setLocation(((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 800) / 2,
@@ -226,7 +236,6 @@ public class YoudaoDicDialog extends JFrame
 		public void actionPerformed(ActionEvent arg0)
 		{
 			translate();
-			justTranslated = true;
 			input.grabFocus();
 		}
 	}
@@ -241,7 +250,7 @@ public class YoudaoDicDialog extends JFrame
 		}
 		else if ("tsingxu".equals(input.getText().trim()))
 		{
-			output.setText("\n\n\n\n\n\n\n          Youdao-Trans-Dialog V2.0 \n          I am tsingxu , from Huitong Solution Depart , my email is 3x3h3q@163.com.");
+			output.setText("\n\n\n\n\n\n\n" + copyRight);
 		}
 		else
 		{
@@ -263,6 +272,7 @@ public class YoudaoDicDialog extends JFrame
 	{
 		this.output.setText(resp);
 		input.grabFocus();
+		output.setCaretPosition(0);
 	}
 
 	public void reset()
@@ -282,8 +292,9 @@ public class YoudaoDicDialog extends JFrame
 		@Override
 		public void setText(String str)
 		{
-			super.setText("\n" + str);
+			super.setText(str);
 		}
 	}
 
+	String copyRight = "\tYoudao Trans Dialog\n\n\tVersion: V2.0\n\tBuild Date: 2012-10-18\n\tVisit https://github.com/tsingxu/Youdao-Trans-Dialog\n\n\t(c) Copyright fanyi.youdao.com and tsingxu(3x3h3q@163.com) 2000~2020. All rights reserved\n\n\tThis product includes software developed by the Faster:XML http://fasterxml.com/";
 }
