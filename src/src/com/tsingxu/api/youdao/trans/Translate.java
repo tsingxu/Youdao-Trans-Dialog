@@ -21,6 +21,7 @@ import com.tsingxu.api.youdao.po.Result;
  * 
  * @since 2012-10-17 下午4:50:04
  * @author x00199331
+ * @see {@code http://fanyi.youdao.com}
  */
 public class Translate implements Runnable
 {
