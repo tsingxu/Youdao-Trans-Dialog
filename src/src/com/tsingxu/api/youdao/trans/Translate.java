@@ -31,7 +31,7 @@ public class Translate implements Runnable
 	private final String urlHead;
 	private static Translate instance = new Translate();
 	private LinkedList<Task> queue = new LinkedList<Task>();
-	private LimitCursorDeque<Task> lcdeque = new LimitCursorDeque<Task>(3333);
+	private LimitCursorQueue<Task> lcdeque = new LimitCursorQueue<Task>(3333);
 	private YoudaoDicDialog dialog;
 
 	private Translate()

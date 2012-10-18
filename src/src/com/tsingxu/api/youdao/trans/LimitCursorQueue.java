@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 
 /**
- * <b>定长光标双端队列</b>
+ * <b>定长光标队列</b>
  * 
  * <ol>
  * <li>...</li>
@@ -15,7 +15,7 @@ import java.util.Queue;
  * @since 2012-10-18 上午8:37:06
  * @author x00199331
  */
-public class LimitCursorDeque<E> implements Queue<E>
+public class LimitCursorQueue<E> implements Queue<E>
 {
 	private int size;
 	private Entry<E> head;
@@ -24,7 +24,7 @@ public class LimitCursorDeque<E> implements Queue<E>
 	private Entry<E> cursor;
 	private int cursorIndex;
 
-	public LimitCursorDeque(int capacity)
+	public LimitCursorQueue(int capacity)
 	{
 		this.capacity = capacity;
 		head = foot = cursor = null;
