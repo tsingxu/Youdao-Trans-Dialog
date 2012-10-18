@@ -19,7 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- * <b>有道词典查询界面 </b>
+ * <b>有道词典查询界面</b>
  * 
  * <ol>
  * <li>...</li>
