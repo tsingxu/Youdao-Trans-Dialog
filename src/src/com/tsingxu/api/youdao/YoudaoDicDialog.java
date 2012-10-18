@@ -13,11 +13,11 @@ import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.tsingxu.api.youdao.trans.Task;
 import com.tsingxu.api.youdao.trans.Translate;
 
 /**
@@ -35,11 +35,12 @@ public class YoudaoDicDialog extends JFrame
 {
 	private JFrame jf = new JFrame("有道词典查询界面 by Tsingxu");
 	private JPanel jp = new JPanel();
-	private JLabel inputLabel = new JLabel("输入");
 	private String defaultInput = "";
 	private JTextField input = new JTextField(defaultInput, 20);
 	private JTextAreaT output = new JTextAreaT();
 	private JButton translate = new JButton("translate");
+	private JButton backward = new JButton("<");
+	private JButton forward = new JButton(">");
 	private JButton reset = new JButton("reset");
 	private JButton wisdom = new JButton("wisdom");
 	private JButton about = new JButton("about");
@@ -57,13 +58,13 @@ public class YoudaoDicDialog extends JFrame
 
 	public YoudaoDicDialog()
 	{
-		Font font = new Font("微软雅黑", Font.PLAIN, 13);
-		inputLabel.setFont(font);
-
-		translate.setFont(new Font("微软雅黑", Font.BOLD, 13));
-		reset.setFont(new Font("微软雅黑", Font.BOLD, 13));
-		wisdom.setFont(new Font("微软雅黑", Font.BOLD, 13));
-		about.setFont(new Font("微软雅黑", Font.BOLD, 13));
+		Font font = new Font("微软雅黑", Font.BOLD, 13);
+		translate.setFont(font);
+		reset.setFont(font);
+		wisdom.setFont(font);
+		about.setFont(font);
+		backward.setFont(font);
+		forward.setFont(font);
 
 		output.setColumns(68);
 		output.setRows(20);
@@ -79,6 +80,29 @@ public class YoudaoDicDialog extends JFrame
 		float[] hsb_1 = Color.RGBtoHSB(186, 224, 190, null);
 		output.setBackground(Color.getHSBColor(hsb_1[0], hsb_1[1], hsb_1[2]));
 		output.setFont(new Font("", Font.PLAIN, 14));
+		output.addKeyListener(new KeyListener()
+		{
+			@Override
+			public void keyTyped(KeyEvent e)
+			{
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e)
+			{
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e)
+			{
+				char c = e.getKeyChar();
+				if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+				{
+					input.grabFocus();
+					input.setText(c + "");
+				}
+			}
+		});
 
 		input.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		input.setSelectedTextColor(Color.WHITE);
@@ -105,6 +129,35 @@ public class YoudaoDicDialog extends JFrame
 			}
 		});
 
+		backward.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				Task t = Translate.getInstance().previousTask();
+				if (t != null)
+				{
+					input.setText(t.getInString());
+					output.setText(t.getOutString());
+				}
+				input.grabFocus();
+			}
+		});
+		forward.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				Task t = Translate.getInstance().nextTask();
+				if (t != null)
+				{
+					input.setText(t.getInString());
+					output.setText(t.getOutString());
+				}
+				input.grabFocus();
+			}
+		});
 		translate.addActionListener(new translateListener());
 		reset.addActionListener(new resetListener());
 		about.addActionListener(new ActionListener()
@@ -115,6 +168,7 @@ public class YoudaoDicDialog extends JFrame
 			{
 				input.setText("tsingxu");
 				translate();
+				input.grabFocus();
 			}
 		});
 		wisdom.addActionListener(new ActionListener()
@@ -126,9 +180,11 @@ public class YoudaoDicDialog extends JFrame
 				int cnt = (int) (Math.random() * wisdoms.length);
 				input.setText(wisdoms[cnt]);
 				translate();
+				input.grabFocus();
 			}
 		});
-		jp.add(inputLabel);
+		jp.add(backward);
+		jp.add(forward);
 		jp.add(input);
 		jp.add(translate);
 		jp.add(reset);
@@ -158,6 +214,7 @@ public class YoudaoDicDialog extends JFrame
 		public void actionPerformed(ActionEvent arg0)
 		{
 			translate();
+			input.grabFocus();
 		}
 	}
 
@@ -185,17 +242,20 @@ public class YoudaoDicDialog extends JFrame
 		public void actionPerformed(ActionEvent arg0)
 		{
 			reset();
+			input.grabFocus();
 		}
 	}
 
 	public void onResp(String resp)
 	{
 		this.output.setText(resp);
+		input.grabFocus();
 	}
 
 	public void reset()
 	{
 		input.setText(defaultInput);
+		input.grabFocus();
 	}
 
 	public static void main(String[] args)

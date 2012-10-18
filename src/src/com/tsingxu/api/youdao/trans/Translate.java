@@ -52,6 +52,16 @@ public class Translate implements Runnable
 		this.dialog = dialog;
 	}
 
+	public Task previousTask()
+	{
+		return lcdeque.stepBackward();
+	}
+
+	public Task nextTask()
+	{
+		return lcdeque.stepForward();
+	}
+
 	public void translate(String input)
 	{
 		synchronized (queue)
@@ -62,7 +72,6 @@ public class Translate implements Runnable
 				queue.notify();
 			}
 		}
-
 	}
 
 	@Override
