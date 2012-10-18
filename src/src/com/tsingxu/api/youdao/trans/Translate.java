@@ -139,6 +139,11 @@ public class Translate implements Runnable
 				baos.flush();
 
 				resp = baos.toString("utf-8");
+
+				if ("1".equals(PropertiesMap.getInstance().getProperty("DEBUG")))
+				{
+					System.out.println(resp);
+				}
 				Result result = (Result) om.readValue(resp, Result.class);
 				String outText = String.valueOf(result);
 				outText = "The following content provided by fanyi.youdao.com\n\n" + "elapsed "
