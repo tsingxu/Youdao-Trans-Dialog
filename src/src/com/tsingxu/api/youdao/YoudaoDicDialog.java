@@ -138,6 +138,11 @@ public class YoudaoDicDialog extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				Task t = Translate.getInstance().previousTask();
+				if (justTranslated)
+				{
+					t = Translate.getInstance().previousTask();
+					justTranslated = false;
+				}
 				if (t != null)
 				{
 					input.setText(t.getInString());
@@ -154,11 +159,7 @@ public class YoudaoDicDialog extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				Task t = Translate.getInstance().nextTask();
-				if (justTranslated)
-				{
-					t = Translate.getInstance().nextTask();
-					justTranslated = false;
-				}
+
 				if (t != null)
 				{
 					input.setText(t.getInString());
