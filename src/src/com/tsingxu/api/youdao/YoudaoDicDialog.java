@@ -29,6 +29,7 @@ import com.tsingxu.api.youdao.trans.Translate;
  * 
  * @since 2012-10-16 上午8:25:50
  * @author x00199331
+ * @version 2.0
  */
 @SuppressWarnings("serial")
 public class YoudaoDicDialog extends JFrame
