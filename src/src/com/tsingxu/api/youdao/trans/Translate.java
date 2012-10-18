@@ -54,12 +54,22 @@ public class Translate implements Runnable
 
 	public Task previousTask()
 	{
-		return lcdeque.stepBackward();
+		Task t = lcdeque.stepBackward();
+		if (t != null)
+		{
+			t.setIndex(lcdeque.getCursorIndex());
+		}
+		return t;
 	}
 
 	public Task nextTask()
 	{
-		return lcdeque.stepForward();
+		Task t = lcdeque.stepForward();
+		if (t != null)
+		{
+			t.setIndex(lcdeque.getCursorIndex());
+		}
+		return t;
 	}
 
 	public void translate(String input)

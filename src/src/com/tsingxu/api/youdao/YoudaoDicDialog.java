@@ -55,6 +55,7 @@ public class YoudaoDicDialog extends JFrame
 			"the pursuit of Happiness", "Get busy living, Or get busy dying.",
 			"To see  a world in a grain of sand. And a heaven in a wild flower.",
 			"我觉得人的脆弱和坚强都超乎自己的想象。有时，我可能脆弱得一句话就泪流满面，有时，也发现自己咬着牙走了很长的路" };
+	private boolean justTranslated = false;
 
 	public YoudaoDicDialog()
 	{
@@ -85,6 +86,12 @@ public class YoudaoDicDialog extends JFrame
 			@Override
 			public void keyTyped(KeyEvent e)
 			{
+				char c = e.getKeyChar();
+				if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+				{
+					input.grabFocus();
+					input.setText(c + "");
+				}
 			}
 
 			@Override
@@ -95,12 +102,7 @@ public class YoudaoDicDialog extends JFrame
 			@Override
 			public void keyPressed(KeyEvent e)
 			{
-				char c = e.getKeyChar();
-				if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-				{
-					input.grabFocus();
-					input.setText(c + "");
-				}
+
 			}
 		});
 
@@ -138,7 +140,8 @@ public class YoudaoDicDialog extends JFrame
 				if (t != null)
 				{
 					input.setText(t.getInString());
-					output.setText(t.getOutString());
+					output.setText("                                               >>>>>>>>>>>>>>>>history - "
+							+ t.getIndex() + "<<<<<<<<<<<<<<<<\n" + t.getOutString());
 				}
 				input.grabFocus();
 			}
@@ -150,10 +153,16 @@ public class YoudaoDicDialog extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				Task t = Translate.getInstance().nextTask();
+				if (justTranslated)
+				{
+					t = Translate.getInstance().nextTask();
+					justTranslated = false;
+				}
 				if (t != null)
 				{
 					input.setText(t.getInString());
-					output.setText(t.getOutString());
+					output.setText("                                               >>>>>>>>>>>>>>>>history - "
+							+ t.getIndex() + "<<<<<<<<<<<<<<<<\n" + t.getOutString());
 				}
 				input.grabFocus();
 			}
@@ -206,6 +215,7 @@ public class YoudaoDicDialog extends JFrame
 		ImageIcon ii = new ImageIcon(this.getClass().getResource("dropbox.png"));
 		jf.setIconImage(ii.getImage());
 		Translate.getInstance().setDialog(this);
+		input.grabFocus();
 	}
 
 	class translateListener implements ActionListener
@@ -214,6 +224,7 @@ public class YoudaoDicDialog extends JFrame
 		public void actionPerformed(ActionEvent arg0)
 		{
 			translate();
+			justTranslated = true;
 			input.grabFocus();
 		}
 	}
@@ -228,7 +239,7 @@ public class YoudaoDicDialog extends JFrame
 		}
 		else if ("tsingxu".equals(input.getText().trim()))
 		{
-			output.setText("\n\n\n\n\n\n\n          I am tsingxu , from Huitong Solution Depart , my email is 3x3h3q@163.com.");
+			output.setText("\n\n\n\n\n\n\n          Youdao-Trans-Dialog V2.0 \n          I am tsingxu , from Huitong Solution Depart , my email is 3x3h3q@163.com.");
 		}
 		else
 		{

@@ -22,12 +22,13 @@ public class LimitCursorDeque<E> implements Queue<E>
 	private Entry<E> foot;
 	private int capacity;
 	private Entry<E> cursor;
+	private int cursorIndex;
 
 	public LimitCursorDeque(int capacity)
 	{
 		this.capacity = capacity;
 		head = foot = cursor = null;
-		size = 0;
+		cursorIndex = size = 0;
 	}
 
 	public E stepForward()
@@ -37,9 +38,10 @@ public class LimitCursorDeque<E> implements Queue<E>
 			return null;
 		}
 
-		if (cursor.getNext() != null)
+		if (cursor.getBack() != null)
 		{
-			cursor = cursor.getNext();
+			cursor = cursor.getBack();
+			cursorIndex--;
 		}
 
 		return cursor.getValue();
@@ -52,9 +54,10 @@ public class LimitCursorDeque<E> implements Queue<E>
 			return null;
 		}
 
-		if (cursor.getBack() != null)
+		if (cursor.getNext() != null)
 		{
-			cursor = cursor.getBack();
+			cursor = cursor.getNext();
+			cursorIndex++;
 		}
 
 		return cursor.getValue();
@@ -307,6 +310,7 @@ public class LimitCursorDeque<E> implements Queue<E>
 		else
 		{
 			Entry<E> tmp = new Entry<E>(e, head, null);
+			head.setBack(tmp);
 			head = tmp;
 		}
 
@@ -363,6 +367,7 @@ public class LimitCursorDeque<E> implements Queue<E>
 	public void resetCursor()
 	{
 		cursor = head;
+		cursorIndex = 0;
 	}
 
 	@Override
@@ -388,6 +393,11 @@ public class LimitCursorDeque<E> implements Queue<E>
 	private boolean overFlow()
 	{
 		return size > capacity;
+	}
+
+	public int getCursorIndex()
+	{
+		return cursorIndex;
 	}
 
 }

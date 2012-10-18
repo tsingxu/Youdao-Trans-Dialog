@@ -4,6 +4,7 @@ public class Task
 {
 	private String inString;
 	private String outString;
+	private int index;
 
 	public Task(String inString)
 	{
@@ -33,7 +34,17 @@ public class Task
 	@Override
 	public String toString()
 	{
-		return "Task [inString=" + inString + ", outString=" + outString + "]";
+		return "Task [inString=" + inString + ", outString=" + outString + ", index=" + index + "]";
+	}
+
+	public int getIndex()
+	{
+		return index;
+	}
+
+	public void setIndex(int index)
+	{
+		this.index = index;
 	}
 
 }
