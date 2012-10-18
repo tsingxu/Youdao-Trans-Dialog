@@ -242,10 +242,10 @@ public class YoudaoDicDialog extends JFrame
 
 	public void translate()
 	{
-		output.setText("正在查询中 ... ");
+		output.setText("translating ... ");
 		if ("".equals(input.getText().trim()))
 		{
-			output.setText("无输入");
+			output.setText("no input");
 			input.setText("");
 		}
 		else if ("tsingxu".equals(input.getText().trim()))
