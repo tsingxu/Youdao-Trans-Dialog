@@ -11,6 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import com.tsingxu.api.youdao.YoudaoTransDialog;
 import com.tsingxu.api.youdao.po.Result;
+import com.tsingxu.api.youdao.tool.PropertiesMap;
 
 /**
  * <b>translate线程，持有一个消息队列，持续的翻译队列中的输入</b>
@@ -25,8 +26,8 @@ import com.tsingxu.api.youdao.po.Result;
  */
 public class Translate implements Runnable
 {
-	private final String ID = "tsingxu";
-	private final String KEY = "1031053504";
+	private final String ID = PropertiesMap.getInstance().getProperty("ID");
+	private final String KEY = PropertiesMap.getInstance().getProperty("KEY");
 	private final String DOCTYPE = "json";
 	private final String URL_REQ = "http://fanyi.youdao.com/openapi.do";
 	private final String urlHead;
