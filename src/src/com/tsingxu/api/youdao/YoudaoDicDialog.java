@@ -34,7 +34,7 @@ import com.tsingxu.api.youdao.trans.Translate;
 @SuppressWarnings("serial")
 public class YoudaoDicDialog extends JFrame
 {
-	private JFrame jf = new JFrame("有道词典查询界面 by Tsingxu");
+	private JFrame jf = new JFrame("Youdao Trans Dialog by Tsingxu");
 	private JPanel jp = new JPanel();
 	private String defaultInput = "";
 	private JTextField input = new JTextField(defaultInput, 20);
