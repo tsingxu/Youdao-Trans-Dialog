@@ -1,4 +1,4 @@
-package com.tsingxu.api.youdao;
+package com.tsingxu.api.youdao.trans;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.tsingxu.api.youdao.trans.Translate;
+
 /**
  * <b>有道词典查询界面</b>
  * 
