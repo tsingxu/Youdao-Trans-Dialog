@@ -73,7 +73,7 @@ public class YoudaoDicDialog extends JFrame
 		forward.setFont(font);
 
 		output.setColumns(68);
-		output.setRows(27);
+		output.setRows(30);
 		output.setLineWrap(true);
 		output.setForeground(Color.BLACK);
 		output.setEditable(false);
@@ -216,8 +216,8 @@ public class YoudaoDicDialog extends JFrame
 
 		jf.add(jp);
 		jf.setVisible(true);
-		jf.setSize(800, 600);
-		jf.setMinimumSize(new Dimension(800, 600));
+		jf.setSize(800, 650);
+		jf.setMinimumSize(new Dimension(800, 650));
 		// jf.setResizable(false);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
