@@ -22,7 +22,7 @@ public class LimitCursorQueue<E> implements Queue<E>
 	private Entry<E> foot;
 	private int capacity;
 	private Entry<E> cursor;
-	private int cursorIndex;
+	private int cursorIndex ;
 
 	public LimitCursorQueue(int capacity)
 	{
