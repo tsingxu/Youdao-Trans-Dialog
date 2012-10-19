@@ -97,6 +97,11 @@ public class YoudaoTransDialog extends JFrame
 					input.grabFocus();
 					input.setText(c + "");
 				}
+				else if (e.getKeyChar() == KeyEvent.VK_ESCAPE)
+				{
+					input.grabFocus();
+					input.setText("");
+				}
 			}
 
 			@Override
