@@ -401,4 +401,9 @@ public class LimitCursorQueue<E> implements Queue<E>
 		return cursorIndex;
 	}
 
+	public int getSize()
+	{
+		return size;
+	}
+
 }

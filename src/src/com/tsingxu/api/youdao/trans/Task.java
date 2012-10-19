@@ -5,6 +5,7 @@ public class Task
 	private String inString;
 	private String outString;
 	private int index;
+	private int sum;
 
 	public Task(String inString)
 	{
@@ -34,7 +35,8 @@ public class Task
 	@Override
 	public String toString()
 	{
-		return "Task [inString=" + inString + ", outString=" + outString + ", index=" + index + "]";
+		return "Task [inString=" + inString + ", outString=" + outString + ", index=" + index
+				+ ", sum=" + sum + "]";
 	}
 
 	public int getIndex()
@@ -45,6 +47,16 @@ public class Task
 	public void setIndex(int index)
 	{
 		this.index = index;
+	}
+
+	public int getSum()
+	{
+		return sum;
+	}
+
+	public void setSum(int sum)
+	{
+		this.sum = sum;
 	}
 
 }

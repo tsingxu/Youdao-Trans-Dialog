@@ -61,6 +61,7 @@ public class YoudaoTransDialog extends JFrame
 			"the pursuit of Happiness", "Get busy living, Or get busy dying.",
 			"To see  a world in a grain of sand. And a heaven in a wild flower.",
 			"我觉得人的脆弱和坚强都超乎自己的想象。有时，我可能脆弱得一句话就泪流满面，有时，也发现自己咬着牙走了很长的路" };
+	private boolean altEntered = false;
 
 	public YoudaoTransDialog()
 	{
@@ -129,18 +130,40 @@ public class YoudaoTransDialog extends JFrame
 			@Override
 			public void keyReleased(KeyEvent e)
 			{
+				if (e.getKeyCode() == KeyEvent.VK_ALT)
+				{
+					altEntered = false;
+				}
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e)
 			{
-				if (e.getKeyChar() == KeyEvent.VK_ENTER)
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
 					translate();
 				}
-				else if (e.getKeyChar() == KeyEvent.VK_ESCAPE)
+				else if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
 				{
 					input.setText("");
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_ALT)
+				{
+					altEntered = true;
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_UP)
+				{
+					if (altEntered)
+					{
+						backward.doClick(100);
+					}
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_DOWN)
+				{
+					if (altEntered)
+					{
+						forward.doClick(100);
+					}
 				}
 			}
 		});
@@ -154,8 +177,12 @@ public class YoudaoTransDialog extends JFrame
 				if (t != null)
 				{
 					input.setText(t.getInString());
-					output.setText("                                               >>>>>>>>>>>>>>>>history - "
-							+ t.getIndex() + "<<<<<<<<<<<<<<<<\n" + t.getOutString());
+					output.setText("                                               >>>>>>>>>>>>>>>>"
+							+ (t.getIndex() + 1)
+							+ " / "
+							+ t.getSum()
+							+ "<<<<<<<<<<<<<<<<\n"
+							+ t.getOutString());
 					output.setCaretPosition(0);
 				}
 				input.grabFocus();
@@ -172,8 +199,12 @@ public class YoudaoTransDialog extends JFrame
 				if (t != null)
 				{
 					input.setText(t.getInString());
-					output.setText("                                               >>>>>>>>>>>>>>>>history - "
-							+ t.getIndex() + "<<<<<<<<<<<<<<<<\n" + t.getOutString());
+					output.setText("                                               >>>>>>>>>>>>>>>>"
+							+ (t.getIndex() + 1)
+							+ " / "
+							+ t.getSum()
+							+ "<<<<<<<<<<<<<<<<\n"
+							+ t.getOutString());
 					output.setCaretPosition(0);
 				}
 				input.grabFocus();

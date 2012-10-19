@@ -60,6 +60,7 @@ public class Translate implements Runnable
 		if (t != null)
 		{
 			t.setIndex(lcdeque.getCursorIndex());
+			t.setSum(lcdeque.getSize());
 		}
 		return t;
 	}
@@ -70,6 +71,7 @@ public class Translate implements Runnable
 		if (t != null)
 		{
 			t.setIndex(lcdeque.getCursorIndex());
+			t.setSum(lcdeque.getSize());
 		}
 		return t;
 	}
