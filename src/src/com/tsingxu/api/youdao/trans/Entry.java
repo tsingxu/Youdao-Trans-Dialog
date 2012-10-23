@@ -8,7 +8,7 @@ package com.tsingxu.api.youdao.trans;
  * </ol>
  * 
  * @since 2012-10-18 上午10:52:16
- * @author x00199331
+ * @author xuhuiqing
  */
 public class Entry<E>
 {

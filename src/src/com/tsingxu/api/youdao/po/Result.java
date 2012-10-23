@@ -2,6 +2,16 @@ package com.tsingxu.api.youdao.po;
 
 import java.util.List;
 
+/**
+ * <b>in_a_word_briefly</b>
+ * 
+ * <ol>
+ * <li>...</li>
+ * </ol>
+ * 
+ * @since 2012-10-23 下午7:22:13
+ * @author xuhuiqing
+ */
 public class Result
 {
 	private String errorCode = null;

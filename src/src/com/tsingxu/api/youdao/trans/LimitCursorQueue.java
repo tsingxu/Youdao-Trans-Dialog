@@ -13,7 +13,7 @@ import java.util.Queue;
  * </ol>
  * 
  * @since 2012-10-18 上午8:37:06
- * @author x00199331
+ * @author xuhuiqing
  */
 public class LimitCursorQueue<E> implements Queue<E>
 {

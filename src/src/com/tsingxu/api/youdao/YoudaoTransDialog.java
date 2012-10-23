@@ -32,7 +32,7 @@ import com.tsingxu.api.youdao.trans.Translate;
  * </ol>
  * 
  * @since 2012-10-16 上午8:25:50
- * @author x00199331
+ * @author xuhuiqing
  * @version 2.0
  */
 @SuppressWarnings("serial")
